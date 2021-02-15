@@ -204,6 +204,9 @@ function UpdateGroup(props) {
                         <Button variant="contained" color="primary" onClick={()=>{ create()}}   style={{ marginLeft:"30px" ,marginTop:"20px"}}>
                                 Submit
                         </Button>
+                        <Button variant="contained" color="primary" onClick={()=>{window.open("about:blank", "_self");window.close();}}   style={{ marginLeft:"30px"}}>
+                                Cancel
+                        </Button>
                     </Col>
                 </Row>
             </Grid>

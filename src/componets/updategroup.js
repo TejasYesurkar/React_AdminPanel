@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { useState,useEffect,useRef  } from "react";
-import { Route, useParams } from "react-router-dom";
-import { Grid, TextField } from '@material-ui/core'
+import React from 'react'
+import { useState,useEffect  } from "react";
+import {  useParams } from "react-router-dom";
+import { Grid } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import AsyncSelect from "react-select/async";
-import {FormCheck, Col,  Row } from 'react-bootstrap'
+import { Col,  Row } from 'react-bootstrap'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from 'axios';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -112,6 +112,8 @@ function UpdateGroup(props) {
          let url = "https://dagduteli.com/Inventory/backend/updateGroup.php";
          axios.post(url, data, { })
          .then(res => { // then print response status
+            alert("Group Update successfully")
+              
              console.warn(res);
          })
         }  
@@ -121,9 +123,7 @@ function UpdateGroup(props) {
             let url = "https://dagduteli.com/Inventory/backend/UnitList.php" 
             axios.post(url, { })
             .then(res => { // then print response status
-                alert("Group Update successfully")
-                console.warn(res.data);
-                history.push('/home');
+               
             })
         }
 
@@ -370,6 +370,9 @@ function UpdateGroup(props) {
                     <Col md={6}>
                         <Button variant="contained" color="primary" onClick={()=>{ create()}}>
                                 Submit
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={()=>{window.open("about:blank", "_self");window.close();}}   style={{ marginLeft:"30px"}}>
+                                Cancel
                         </Button>
                     </Col>
                 </Row>

@@ -8,9 +8,7 @@ import  {Link} from 'react-router-dom';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery'; 
-//For API Requests
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-
 import {AgGridReact} from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
@@ -47,7 +45,7 @@ export default class viewinventory extends Component {
             { field: 'Item_Description', headName: 'Description' },
         {headName:"Action",field:"Action",cellRendererFramework:(params)=>
         <div>
-           <Link to={`inventory/${params.data.Item_ID}`}>VIEW</Link>
+           <Link to={`inventory/${params.data.Item_ID}`} target="_blank">VIEW</Link>
             {/* <span onClick={()=>this.handleClick()}>View</span>  */}
         </div>}
     ]

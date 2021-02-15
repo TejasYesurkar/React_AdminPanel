@@ -15,7 +15,6 @@ let status ="true"
 function UpdateGroup(props) {
     const history = useHistory();
 
-    const [group,setGroup]=useState({});
     let { id } = useParams();
     const [invid, setInvid] = useState(id);
     const [groupname, setGroupname] = useState('');

@@ -145,6 +145,11 @@ function UpdateGroup(props) {
              history.push('/home');
          })
         }  
+        function handleInputChange(event) {
+         
+            setSelectimage(event.target.files[0])
+            
+        }
 
         function fetchData() {
             console.log("Unit")
@@ -488,15 +493,16 @@ function UpdateGroup(props) {
                             defaultValue={itemanalysis}
                             variant="outlined"
                             size="small"
+                            value="Regular"
                             onChange={e => setItemanalysis(e.target.value)}></input>
                     </Col>
 
                     <Col md={3}>
                     <label style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}>Product Listing: </label>
-                    <select  id="outlined-size-small" variant="outlined" style={{height:"40px", width:"100%",marginLeft:"30%" }} onChange={e => setNatureitem(e.target.value)} >           
-                    <option value={natureitem}>{natureitem}</option>
-                     <option value="Goods">Goods</option>
-                     <option value="Services">Services</option>
+                    <select  id="outlined-size-small" variant="outlined" style={{height:"40px", width:"100%",marginLeft:"30%" }} onChange={e => setProductlisting(e.target.value)} >           
+                    <option value={productlisting}>{productlisting}</option>
+                     <option value="Grocery">Grocery</option>
+                     <option value="Ayurvedic">Ayurvedic</option>
                     </select>
 
                     </Col>
@@ -504,7 +510,7 @@ function UpdateGroup(props) {
                     <Col md={3}>
                     <label style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}>Select Image: </label>
 
-                 
+                    <input type="file" style={{ width:"100%",marginLeft:"30%"}} className="form-control" name="upload_file" onChange={handleInputChange} />
                     </Col>
                 </Row>
 
@@ -530,6 +536,9 @@ function UpdateGroup(props) {
                     <Col md={6}>
                         <Button variant="contained" color="primary" onClick={()=>{ create()}}>
                                 Submit
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={()=>{window.open("about:blank", "_self");window.close();}}   style={{ marginLeft:"30px"}}>
+                                Cancel
                         </Button>
                     </Col>
                 </Row>

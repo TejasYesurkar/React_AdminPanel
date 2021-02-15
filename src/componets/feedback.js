@@ -17,27 +17,18 @@ export default class feedback extends Component {
         super(props)
           this.state = {
             data: [], 
+            columns:[
+                {headName:"f-ID",field:"FID",sortable:true},
+                {headName:"Customer Namee",field:"customerName",sortable:true},
+                {headName:"Mobile",field:"custMobile",sortable:true},
+                {headName:"Feedback",field:"FeedBack",sortable:true},
+            ]
+        
           }}
 
-        // componentDidMount(){
-        //     fetch('http://dagduteli.com/Inventory/backend/feedback.php').then((res)=>{
-        //         res.json().then((result)=>{
-        //             this.setState({data:result})
-        //         })
-        //     })
-          
-        // }
+
     render() {
-     
-  
- 
-     const columns =[
-         {headName:"f-ID",field:"fld_feedback_id",sortable:true},
-         {headName:"Customer Name",field:"customerName",sortable:true},
-         {headName:"Mobile",field:"custMobile",sortable:true},
-         {headName:"Feedback",field:"fld_feedback",sortable:true},
-     ]
- 
+   
      const defaultColDef={
          sortable:true,filter:true,floatingFilter:true,flex:1
      }
@@ -67,7 +58,7 @@ export default class feedback extends Component {
                                     pagination={true}
                                     paginationPageSize={10}
                                     paginationAutoPageSize={true}
-                                    columnDefs={columns} 
+                                    columnDefs={this.state.columns} 
                                     onGridReady={onGridReady}
                                     defaultColDef={defaultColDef}/>
                               </div>

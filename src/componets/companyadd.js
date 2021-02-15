@@ -72,6 +72,7 @@ export default class storeadd extends Component {
                                     style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}
                                     label="Party Name"
                                     id="outlined-size-small"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -83,7 +84,7 @@ export default class storeadd extends Component {
                                    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Print Name"
                                     id="outlined-size-small"
-                                  
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -95,7 +96,7 @@ export default class storeadd extends Component {
                                     style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Mobile No."
                                     id="outlined-size-small"
-                                   
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -108,6 +109,7 @@ export default class storeadd extends Component {
                                     onChange={(event)=>{this.setState({city:event.target.value})}} 
                                     style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}
                                     label="City"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     id="outlined-size-small"
                                     variant="outlined"
                                     size="small"
@@ -120,7 +122,7 @@ export default class storeadd extends Component {
                                    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="State"
                                     id="outlined-size-small"
-                                   
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -132,7 +134,7 @@ export default class storeadd extends Component {
                                     style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Address"
                                     id="outlined-size-small"
-                                  
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -148,6 +150,7 @@ export default class storeadd extends Component {
                                     label="Account Type"
                                     id="outlined-size-small"
                                     variant="outlined"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     size="small"
                                     />
                             </Col>
@@ -158,7 +161,7 @@ export default class storeadd extends Component {
                                    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Sale Rate Type"
                                     id="outlined-size-small"
-                                    
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />

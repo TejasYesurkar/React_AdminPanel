@@ -2,7 +2,7 @@ import { Grid, TextField } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import React, { Component } from 'react'
-
+import { Form } from 'react-bootstrap';
 import { withStyles } from '@material-ui/core/styles';
 import { Col,  Row } from 'react-bootstrap'
 import axios from 'axios';
@@ -32,10 +32,20 @@ export default class Grouplist extends Component {
             sellratetx:true,
             purchesratetx:true,
             onlineapp:true,
+            unitdata: [],
 
         };
 
       }
+      componentDidMount(){
+            
+        fetch('https://dagduteli.com/Inventory/backend/UnitList.php').then((res)=>{
+          res.json().then((result)=>{
+              this.setState({unitdata:result})
+          })
+      })
+    }
+
       create(){
         //e.preventDefault();
         axios({
@@ -167,7 +177,13 @@ export default class Grouplist extends Component {
         this.setState({ normalSelectOption });
       };
     render() {
-       
+      const { unitdata } = this.state;
+     
+      let unitList = unitdata.length > 0
+        && unitdata.map((item, i) => {
+        return (<option key={i} value={item.S_name}>{item.S_name}</option>)
+      }, this);
+
 const BootstrapInput = withStyles((theme) => ({
     root: {
       'label + &': {
@@ -219,6 +235,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="Group Name"
                                     id="outlined-size-small"
                                     variant="outlined"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     size="small"
                                     />
                             </Col>
@@ -230,6 +247,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="Tax Rate"
                                     id="outlined-size-small"
                                     defaultValue="0"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -242,6 +260,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="Discount Rate"
                                     id="outlined-size-small"
                                     defaultValue="0"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -254,6 +273,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     onChange={(event)=>{this.setState({proditem:event.target.value})}} 
                                     style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Product Item"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     id="outlined-size-small"
                                     variant="outlined"
                                     size="small"
@@ -265,6 +285,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     onChange={(event)=>{this.setState({hsn:event.target.value})}} 
                                    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="HSN Code"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     id="outlined-size-small"
                                     defaultValue="0"
                                     variant="outlined"
@@ -275,16 +296,14 @@ const BootstrapInput = withStyles((theme) => ({
                             <Col md={3}>
                             <FormControl variant="outlined"    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px",backgroundColor:"#fff"}} >
                                     
-                                    <AsyncSelect 
-                                        styles={{backgroundColor:"#000"  }}
-                                        value={this.state.selectedOption}
-                                        loadOptions={this.fetchData}
-                                        placeholder="Measuring Unit"
-                                        onChange={(e) => {
-                                        this.onSearchChange(e);
-                                        }}
-                                        defaultOptions={true}
-                                    />
+                                   <Form.Control
+                              as="select"
+                              custom
+                              hint="Sub Category"
+                              data-live-search="true"
+                            >
+                             {unitList}
+                            </Form.Control>
                             </FormControl>
                                 {/* <FormControl variant="outlined"  >
                                     <InputLabel id="demo-simple-select-outlined-label" >Measuring Unit</InputLabel>
@@ -313,6 +332,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="Item Category"
                                     id="outlined-size-small"
                                     variant="outlined"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     value="Regular"
                                     size="small"
                                     />
@@ -326,6 +346,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     value="1"
                                     id="outlined-size-small"
                                     defaultValue="0"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -337,7 +358,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Item ShelfLife"
                                     id="outlined-size-small"
-                                   
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />
@@ -352,6 +373,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="Min Re-Order Qty"
                                     id="outlined-size-small"
                                     variant="outlined"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     defaultValue="0"
                                     size="small"
                                     />
@@ -363,6 +385,7 @@ const BootstrapInput = withStyles((theme) => ({
                                    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                     label="Max ReOrder qty"
                                     value="1"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     id="outlined-size-small"
                                     defaultValue="0"
                                     variant="outlined"
@@ -377,6 +400,7 @@ const BootstrapInput = withStyles((theme) => ({
                                     label="BarcodeLabel Qty"
                                     id="outlined-size-small"
                                     defaultValue="0"
+                                    inputProps={{style: {fontSize: 15}}} 
                                     variant="outlined"
                                     size="small"
                                     />

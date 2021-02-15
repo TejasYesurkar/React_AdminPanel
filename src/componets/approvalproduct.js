@@ -50,7 +50,7 @@ export default class approvalproduct extends Component {
             { field: 'Item_Description', headName: 'Description' },
     {headName:"Action",field:"Action",cellRendererFramework:(params)=>
     <div>
-       <Link to={`approval/${params.data.Item_ID}`}>VIEW</Link>
+       <Link to={`approval/${params.data.Item_ID}`} target="_blank">VIEW</Link>
         {/* <span onClick={()=>this.handleClick()}>View</span>  */}
     </div>}
 ]

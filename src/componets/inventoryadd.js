@@ -7,6 +7,8 @@ import axios from 'axios';
 import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import AsyncSelect from "react-select/async";
+import { Form } from 'react-bootstrap';
+
 export default class inventoryadd extends Component {
     constructor(props, context) {
         super(props, context);
@@ -40,9 +42,28 @@ export default class inventoryadd extends Component {
             itemanalysis:"",
             selectedFile:"",
             productlisting:"Grocery",
-        }
+            unitdata: [],
+            subcategorydata: [],
+        },
+       
         this.handleInputChange = this.handleInputChange.bind(this);
       }
+      componentDidMount(){
+            
+        fetch('https://dagduteli.com/Inventory/backend/UnitList.php').then((res)=>{
+          res.json().then((result)=>{
+              this.setState({unitdata:result})
+          })
+      })
+
+            
+      fetch('https://dagduteli.com/Inventory/backend/subcategorylist.php').then((res)=>{
+        res.json().then((result)=>{
+            this.setState({subcategorydata:result})
+        })
+    })
+        
+    }
 
       create(){
          const data = new FormData() 
@@ -89,7 +110,7 @@ export default class inventoryadd extends Component {
     fetchCategory = (inputValue, callback) => {
         setTimeout(() => {
           fetch(
-            "http://dagduteli.com/Inventory/backend/subcategorylist.php?group=" +
+            "http://dagduteli.com/Inventory/backend/subcategorylist.php" +
               inputValue,
             {
               method: "GET",
@@ -183,6 +204,19 @@ export default class inventoryadd extends Component {
         }
       };
     render() {
+      const { unitdata } = this.state;
+      const { subcategorydata } = this.state;
+
+      let unitList = unitdata.length > 0
+        && unitdata.map((item, i) => {
+        return (<option key={i} value={item.S_name}>{item.S_name}</option>)
+      }, this);
+
+      let subcategoryList = subcategorydata.length > 0
+      && subcategorydata.map((item, i) => {
+      return (<option key={i} value={item.Item_SubGroup}>{item.Item_SubGroup}</option>)
+    }, this);
+      
         return (
             <div>
             <div class="MuiPaper-root MuiCard-root MuiPaper-elevation3 MuiPaper-rounded">
@@ -196,10 +230,11 @@ export default class inventoryadd extends Component {
                         <Col md={3}>
                                 <TextField
                                 onChange={(event)=>{this.setState({groupname:event.target.value})}} 
-                                style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}
+                                style={{ width:"100%",marginLeft:"30%",marginTop:"20px",fontSize:"10px"}}
                                 label="Group Name"
                                 id="outlined-size-small"
                                 variant="outlined"
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -207,17 +242,35 @@ export default class inventoryadd extends Component {
                         <Col md={3}>
                         <FormControl variant="outlined"    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px",backgroundColor:"#fff"}} >
                                 
-                                <AsyncSelect 
-                                    styles={{backgroundColor:"#000"  }}
+                        <Form.Control
+                              as="select"
+                              custom
+                              hint="Sub Category"
+                              data-live-search="true"
+                            >
+                             {subcategoryList}
+                            </Form.Control>
+                                {/* <AsyncSelect 
+                                    
                                     value={this.state.subgroup}
                                     loadOptions={this.fetchCategory}
                                     placeholder="SubGroup"
                                     onChange={(e) => {
                                     this.oncategoryChange(e);
                                     }}
-                                     styles={{ backgroundColor: 'white' }}
+                                    theme={theme=>({
+                                      ...theme,
+                                      borderRadius:0,
+                                      color:{
+                                        ...theme.colors,
+                                        primary25:'hotpink',
+                                        primary:'black',
+                                        neutral0:'#c8c8c8',
+                                        neutrak90:'white'
+                                      }
+                                    })}
                                     defaultOptions={true}
-                                />
+                                /> */}
                         </FormControl>
                         </Col>
 
@@ -227,7 +280,7 @@ export default class inventoryadd extends Component {
                                 style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                 label="Product Name"
                                 id="outlined-size-small"
-                             
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -240,6 +293,7 @@ export default class inventoryadd extends Component {
                                 onChange={(event)=>{this.setState({sku:event.target.value})}} 
                                 style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                 label="SKU"
+                                inputProps={{style: {fontSize: 15}}} 
                                 id="outlined-size-small"
                                 variant="outlined"
                                 size="small"
@@ -253,6 +307,7 @@ export default class inventoryadd extends Component {
                                 label="Description"
                                 id="outlined-size-small"
                                 defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -264,7 +319,7 @@ export default class inventoryadd extends Component {
                                 label="HSN"
                                 id="outlined-size-small"
                                 variant="outlined"
-                              
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -273,19 +328,17 @@ export default class inventoryadd extends Component {
                     <Row className="show-grid">
 
                     <Col md={3}>
-                        <FormControl variant="outlined"    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px",backgroundColor:"#fff"}} >
+                    <FormControl variant="outlined"    style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px",backgroundColor:"#fff"}} >
                                 
-                                <AsyncSelect 
-                                    styles={{backgroundColor:"#000"  }}
-                                    value={this.state.selectedOption}
-                                    loadOptions={this.fetchData}
-                                    placeholder="Measuring Unit"
-                                    onChange={(e) => {
-                                    this.onSearchChange(e);
-                                    }}
-                                    defaultOptions={true}
-                                />
-                        </FormControl>
+                                <Form.Control
+                                      as="select"
+                                      custom
+                                      data-live-search="true"
+                                    >
+                                     {unitList}
+                                    </Form.Control>
+                                     
+                                </FormControl>
                            
                         </Col>
                        
@@ -294,7 +347,7 @@ export default class inventoryadd extends Component {
                                 onChange={(event)=>{this.setState({taxrate:event.target.value})}} 
                                style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                 label="Tax Rate"
-                                
+                                inputProps={{style: {fontSize: 15}}} 
                                 id="outlined-size-small"
                                 defaultValue="0"
                                 variant="outlined"
@@ -308,7 +361,7 @@ export default class inventoryadd extends Component {
                                 style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
                                 label="Purchase Rate"
                                 id="outlined-size-small"
-                               
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -325,6 +378,7 @@ export default class inventoryadd extends Component {
                                 variant="outlined"
                                 defaultValue="0"
                                 size="small"
+                                inputProps={{style: {fontSize: 15}}} 
                                 />
                         </Col>
 
@@ -336,6 +390,7 @@ export default class inventoryadd extends Component {
                                 id="outlined-size-small"
                                 defaultValue="0"
                                 variant="outlined"
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -347,6 +402,7 @@ export default class inventoryadd extends Component {
                                 label="Sales Rate1"
                                 id="outlined-size-small"
                                 defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -362,6 +418,7 @@ export default class inventoryadd extends Component {
                                 label="Sales Rate2"
                                 id="outlined-size-small"
                                 variant="outlined"
+                                inputProps={{style: {fontSize: 15}}} 
                                 defaultValue="0"
                                 size="small"
                                 />
@@ -374,6 +431,7 @@ export default class inventoryadd extends Component {
                                 label="Discount"
                                 id="outlined-size-small"
                                 defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -383,8 +441,9 @@ export default class inventoryadd extends Component {
                                 <TextField
                                 onChange={(event)=>{this.setState({devagiriname:event.target.value})}} 
                                 style={{ width:"100%",marginLeft:"30%" ,marginTop:"20px"}}
-                                label="Devagiri Name"
+                                label="Devanagari Name"
                                 id="outlined-size-small"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -402,6 +461,7 @@ export default class inventoryadd extends Component {
                                 id="outlined-size-small"
                                 variant="outlined"
                                 defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -413,6 +473,7 @@ export default class inventoryadd extends Component {
                                label="Max-Reorder Qty"
                                 id="outlined-size-small"
                                 defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 size="small"
                                 />
@@ -425,6 +486,7 @@ export default class inventoryadd extends Component {
                                 label="Shelf List"
                                 id="outlined-size-small"
                                 variant="outlined"
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -437,6 +499,7 @@ export default class inventoryadd extends Component {
                                 style={{ width:"100%",marginLeft:"30%",marginTop:"20px"}}
                                 label="Shelf-RackNo"
                                 id="outlined-size-small"
+                                inputProps={{style: {fontSize: 15}}} 
                                 variant="outlined"
                                 defaultValue="0"
                                 size="small"
@@ -459,6 +522,7 @@ export default class inventoryadd extends Component {
                                 id="outlined-size-small"
                                 defaultValue="0"
                                 variant="outlined"
+                                inputProps={{style: {fontSize: 15}}} 
                                 size="small"
                                 />
                         </Col>
@@ -473,7 +537,8 @@ export default class inventoryadd extends Component {
                                 label="item Analysis"
                                 id="outlined-size-small"
                                 variant="outlined"
-                                defaultValue="0"
+                                inputProps={{style: {fontSize: 15}}} 
+                                value="Regular"
                                 size="small"
                                 />
                         </Col>

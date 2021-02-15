@@ -61,7 +61,7 @@ export default class groupadd extends Component {
             { field: 'HSNSACCode', headName: 'HSN Code',sortable:true },
         {headName:"Action",field:"Action",cellRendererFramework:(params)=>
         <div>
-           <Link to={`customer/${params.data.gid}`}>VIEW</Link>
+           <Link to={`group/${params.data.gid}`} target="_blank">VIEW</Link>
             {/* <span onClick={()=>this.handleClick()}>View</span>  */}
         </div>}
     ]

@@ -52,7 +52,7 @@ export default class customerlist extends Component {
         { field: 'DateCreated',  headName: 'Register Date' ,sortable:true},
         {headName:"Action",field:"Action",cellRendererFramework:(params)=>
         <div>
-           <Link to={`customer/${params.data.id}`}>VIEW</Link>
+           <Link to={`customer/${params.data.id}`} target="_blank">VIEW</Link>
             {/* <span onClick={()=>this.handleClick()}>View</span>  */}
         </div>}
     ]
